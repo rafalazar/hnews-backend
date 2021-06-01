@@ -53,6 +53,7 @@ export class PostService {
     }
 
     async checkIfExitsData() {
+        
         const dataLenght = await this.getAllPosts();
 
         if((await dataLenght).length !== 0) {
