@@ -13,14 +13,22 @@ export class PostService {
         @InjectModel(Post.name) private postModel: Model<PostDocument>,
     ) {};
 
-    async create(createPostDto: CreatePostDto): Promise<Post> {
+    async getAllPosts(): Promise<Post[]> {
+
+        console.log((await this.postModel.find({})).length);
         
+
+        return await this.postModel.find({});
+    }
+
+    async create(createPostDto: CreatePostDto): Promise<Post> {
+
         const createdPost = new this.postModel(createPostDto);
 
         return createdPost.save();
     }
 
-    async findAll() {
+    async getDataFromApi() {
 
         const hitsRes = await this.httpService.get('https://hn.algolia.com/api/v1/search_by_date?query=nodejs')
             .toPromise();
@@ -29,16 +37,27 @@ export class PostService {
         
         let hitList: HitsResponse[] = [];
 
-        hits.map(dataHit => {
-            const hit: HitsResponse = new HitsResponse();
+        await this.checkIfExitsData();
+
+        hits.map(async dataHit => {
+            const hit: CreatePostDto = new CreatePostDto();
             hit.author = dataHit.author;
             hit.created_at = dataHit.created_at;
             hit.story_title = dataHit.story_title;
             hit.title = dataHit.title;
 
-            hitList.push(hit);
+            await this.create(hit);
         });
 
         return hitList;
+    }
+
+    async checkIfExitsData() {
+        const dataLenght = await this.getAllPosts();
+
+        if((await dataLenght).length !== 0) {
+            console.log('Data will be deleted');
+            await this.postModel.db.dropCollection('posts');
+        }
     }
 }
