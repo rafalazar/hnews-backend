@@ -54,7 +54,7 @@ localhost:4000/posts
 
 Once the backend is running. We must start the Frontend side.
 
-To do so, you must follow the following link [Frontend App](https://gitlab.com/jordansalazar.975/frontend-react-challenge) and follow the corresponding steps detailed in the README file.
+To do so, you must follow this link [Frontend App](https://gitlab.com/jordansalazar.975/frontend-react-challenge) and follow the corresponding steps detailed in the README file.
 
 ## Stay in touch
 
