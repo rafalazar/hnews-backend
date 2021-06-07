@@ -6,4 +6,8 @@ export class CreatePostDto {
     author: string;
     
     story_title: string;
+
+    story_url: string;
+
+    url: string;
 }

@@ -15,6 +15,12 @@ export class Post {
 
     @Prop()
     story_title: string;
+
+    @Prop()
+    story_url: string;
+
+    @Prop()
+    url: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
