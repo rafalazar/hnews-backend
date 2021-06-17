@@ -18,7 +18,6 @@ export class PostService {
 
         console.log((await this.postModel.find({})).length);
 
-        //return await this.postModel.find({});
         return await this.postModel.find().sort({"created_at" : -1});
     }
 
